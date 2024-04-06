@@ -1,0 +1,29 @@
+body{
+    background-color: rgb(99, 209, 209);
+}
+main{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    
+}
+#main-section{
+    display: flex;
+    flex-direction: column;
+    align-content: space-around;
+
+}
+#map{
+    height: 70vh;
+    width: 90vw;
+    background-color: antiquewhite;
+    margin-top: 10px;
+    border-radius: 10px;
+    box-shadow: 5px 5px 5px hsl(0, 0%, 48%);
+}
+#buisness-finder{
+    margin-top: 25px;
+   
+    min-width: 200px;
+}
