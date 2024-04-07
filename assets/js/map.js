@@ -22,6 +22,9 @@ async function renderMap(){
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
         minZoom: '15',
     }).addTo(myMap)
+    const marker = L.marker(userLocation)
+    marker.addTo(myMap).bindPopup('<p1><b>My Location</b></p1>').openPopup()
+    
 }
 renderMap()
 
@@ -34,11 +37,33 @@ add event listener
 
 
 */
-let locations = document.getElementById('buisness-finder')
-locations.addEventListener('change', (event) =>{
-    let userChoice = event.target.value;
-    console.log(userChoice)
-})
+
+
+async function search() {
+    let userLocation = await getCoords();
+    let buisnessType = document.getElementById('buisness-finder');
+    
+    buisnessType.addEventListener('change', async (event) => {
+        let userChoice = event.target.value;
+        try {
+            const options = {
+                method: 'GET',
+                headers: {
+                    accept: 'application/json',
+                    Authorization: 'fsq3AHNPmBmv2HanWgrO3TEgwuGXQQ/MNjCiK/VgOndLOjk='
+                }
+            };
+            let response = await fetch(`https://api.foursquare.com/v3/places/search?query=${userChoice}%20type&ll=${userLocation}&limit=5`, options);
+            let data = await response.json();
+            console.log("response data ", data);
+        } catch (error) {
+            console.log("fetch error", error);
+        }
+    });
+}
+search()
+//get the forsquare api info for nearby buisness
+    // let response = await fetch(`https://api.foursquare.com/v3/places/search?query=${locations}%20type&ll=${userLocation}&limit=5`, options)
 
 
 
